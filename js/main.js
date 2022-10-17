@@ -1,3 +1,3 @@
-import { BigPictureHandler } from './drawBigPic.js';
+import { BigPictureHandler } from './bigPicture.js';
 
 BigPictureHandler();
