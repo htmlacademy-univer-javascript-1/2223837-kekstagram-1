@@ -1,4 +1,4 @@
-import {getRandomPositiveInt, getRandomArrayElement} from './util.js';
+import { getRandomPositiveInt, getRandomArrayElement } from './util.js';
 
 const names = ['Анна', 'Мария', 'София', 'Алиса', 'Ева', 'Виктория',
   'Иван', 'Дмитрий', 'Никита', 'Александр', 'Игорь', 'Артём'
@@ -10,6 +10,14 @@ const sentences = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+];
+
+const pictureDescriptions = [
+  'Давайте разбираться: героям были возданы соответствующие почести', 'Господа, кровь стынет в жилах!',
+  'Граница обучения кадров одухотворила всех причастных', 'Благородные стремления не спасут: кровь стынет в жилах',
+  'Не следует забывать, что младая поросль матереет', 'Выбранный нами инновационный путь обнадёживает',
+  'Прототип нового сервиса — это как звон колоколов', 'Смешно, но герцог графства коронован',
+  'Органический трафик попахивает безумием', 'Высококачественный прототип будущего проекта определил дальнейшее развитие'
 ];
 
 function createRandomComments(amount) {
@@ -25,13 +33,13 @@ function createRandomComments(amount) {
   return comments;
 }
 
-export function createImageDescriptions(amount = 26) {
+export function createImageDescriptions(amount) {
   const descriptions = [];
-  for (let i = 1; i < amount; i++) {
+  for (let i = 0; i < amount; i++) {
     descriptions[i] = {
-      id: i,
-      url: `photos/${i}.jpg`,
-      description: '',
+      id: i + 1,
+      url: `photos/${i + 1}.jpg`,
+      description: getRandomArrayElement(pictureDescriptions),
       likes: getRandomPositiveInt(15, 200),
       comments: createRandomComments(6)
     };

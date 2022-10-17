@@ -1,5 +1,3 @@
-import { createImageDescriptions } from './data.js';
-import { createUsersPictures } from './draw.js';
+import { BigPictureHandler } from './drawBigPic.js';
 
-createImageDescriptions();
-createUsersPictures(25);
+BigPictureHandler();
