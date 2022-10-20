@@ -1,4 +1,5 @@
 import { body } from './main.js';
+import './validateForm.js';
 
 const uploadFileButton = document.querySelector('#upload-file');
 const uploadCancelButton = document.querySelector('#upload-cancel');
