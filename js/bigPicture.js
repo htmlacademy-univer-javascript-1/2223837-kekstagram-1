@@ -1,9 +1,5 @@
-import { createUsersPictures } from './gallery.js';
+import { body } from './main.js';
 
-const usersImgDescriptions = createUsersPictures(25);
-
-const body = document.querySelector('body');
-const userPictures = document.querySelectorAll('.picture');
 const bigPic = document.querySelector('.big-picture');
 const bigPicImg = document.querySelector('.big-picture__img').querySelector('img');
 const bigPicCaption = bigPic.querySelector('.social__caption');
@@ -15,45 +11,56 @@ const bigPicComments = bigPic.querySelector('.social__comments');
 const commentTemplate = bigPicComments.querySelector('.social__comment');
 const cancelButton = bigPic.querySelector('#picture-cancel');
 
-function closeModalHandler() {
-  cancelButton.onclick = () => {
-    bigPic.classList.add('hidden');
-    body.classList.remove('modal-open');
-  };
+const onBigPicModalEscKeydown = (evt) => {
+  if (evt.key === 'Escape') {
+    bigPicModalClose();
+  }
+};
 
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      bigPic.classList.add('hidden');
-      body.classList.remove('modal-open');
-    }
+function bigPicModalOpen() {
+  body.classList.add('modal-open');
+  bigPic.classList.remove('hidden');
+  bigPicSocialComments.classList.add('hidden');
+  bigPicCommentsLoader.classList.add('hidden');
+  document.addEventListener('keydown', onBigPicModalEscKeydown);
+}
+
+function bigPicModalClose() {
+  body.classList.remove('modal-open');
+  bigPic.classList.add('hidden');
+  bigPicSocialComments.classList.remove('hidden');
+  bigPicCommentsLoader.classList.remove('hidden');
+  document.removeEventListener('keydown', onBigPicModalEscKeydown);
+}
+
+function updateBigPicComments(comments) {
+  comments.forEach(({ avatar, message }) => {
+    const userComment = commentTemplate.cloneNode(true);
+    const userCommentAvatar = userComment.querySelector('img');
+    userCommentAvatar.src = avatar;
+    const userCommentMessage = userComment.querySelector('p');
+    userCommentMessage.textContent = message;
+    bigPicComments.append(userComment);
   });
 }
 
-export function BigPictureHandler() {
+function updateBigPicData(url, description, likes, comments) {
+  bigPicImg.src = url;
+  bigPicCaption.textContent = description;
+  bigPicLikesCount.textContent = likes;
+  bigPicCommentsCount.textContent = comments.length;
+  bigPicComments.innerHTML = '';
+  updateBigPicComments(comments);
+}
+
+export function BigPictureHandler(usersImgDescriptions) {
+  const userPictures = document.querySelectorAll('.picture');
   userPictures.forEach((picture, i) => {
     const { url, description, likes, comments } = usersImgDescriptions[i];
     picture.onclick = function () {
-      body.classList.toggle('modal-open');
-      bigPic.classList.toggle('hidden');
-      bigPicSocialComments.classList.add('hidden');
-      bigPicCommentsLoader.classList.add('hidden');
-
-      bigPicImg.src = url;
-      bigPicCaption.textContent = description;
-      bigPicLikesCount.textContent = likes;
-
-      bigPicCommentsCount.textContent = comments.length;
-      bigPicComments.innerHTML = '';
-
-      comments.forEach(({ avatar, message }) => {
-        const userComment = commentTemplate.cloneNode(true);
-        const userCommentAvatar = userComment.querySelector('img');
-        userCommentAvatar.src = avatar;
-        const userCommentMessage = userComment.querySelector('p');
-        userCommentMessage.textContent = message;
-        bigPicComments.append(userComment);
-      });
+      bigPicModalOpen();
+      updateBigPicData(url, description, likes, comments);
+      cancelButton.onclick = bigPicModalClose;
     };
   });
-  closeModalHandler();
 }
