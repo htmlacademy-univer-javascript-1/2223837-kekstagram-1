@@ -41,7 +41,7 @@ export function createImageDescriptions(amount) {
       url: `photos/${i + 1}.jpg`,
       description: getRandomArrayElement(pictureDescriptions),
       likes: getRandomPositiveInt(15, 200),
-      comments: createRandomComments(6)
+      comments: createRandomComments(getRandomPositiveInt(5, 16))
     };
   }
   return descriptions;
