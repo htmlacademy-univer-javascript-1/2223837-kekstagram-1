@@ -18,7 +18,7 @@ const onBigPicModalEscKeydown = (evt) => {
   }
 };
 
-function bigPicModalOpen() {
+export function bigPicModalOpen() {
   body.classList.add('modal-open');
   bigPic.classList.remove('hidden');
   document.addEventListener('keydown', onBigPicModalEscKeydown);
@@ -45,7 +45,7 @@ const loadComments = (comments) => {
   bigPicCurrentCommentsCount.textContent = currentCommentsCount;
 };
 
-function updateBigPicData(url, description, likes, comments) {
+export function updateBigPicData({ url, description, likes, comments }) {
   bigPicImg.src = url;
   bigPicCaption.textContent = description;
   bigPicLikesCount.textContent = likes;
@@ -55,14 +55,6 @@ function updateBigPicData(url, description, likes, comments) {
   commentsLoadButton.onclick = () => loadComments(comments);
 }
 
-export function BigPictureHandler(usersImgDescriptions) {
-  const userPictures = document.querySelectorAll('.picture');
-  userPictures.forEach((picture, i) => {
-    const { url, description, likes, comments } = usersImgDescriptions[i];
-    picture.onclick = function () {
-      bigPicModalOpen();
-      updateBigPicData(url, description, likes, comments);
-      cancelButton.onclick = bigPicModalClose;
-    };
-  });
+export function BigPictureHandler() {
+  cancelButton.onclick = bigPicModalClose;
 }
