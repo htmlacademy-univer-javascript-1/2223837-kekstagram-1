@@ -21,8 +21,8 @@ function validateComment(value) {
   return value.length <= 140;
 }
 
-export function validateForm(uploadImageForm, hashtagsInput, commentInput) {
-  const pristine = new Pristine(uploadImageForm, {
+export function validateForm(form, hashtagsInput, commentInput) {
+  const pristine = new Pristine(form, {
     classTo: 'img-upload__field-wrapper',
     errorTextParent: 'img-upload__field-wrapper',
     errorTextClass: 'img-upload__field-wrapper__error'
@@ -40,10 +40,9 @@ export function validateForm(uploadImageForm, hashtagsInput, commentInput) {
     'Длина комментария не должна превышать 140 символов.'
   );
 
-  hashtagsInput.onkeydown = onFocusIgnoreEscKeydown;
-  commentInput.onkeydown = onFocusIgnoreEscKeydown;
+  hashtagsInput.onkeydown = commentInput.onkeydown = onFocusIgnoreEscKeydown;
 
-  uploadImageForm.onsubmit = function (evt) {
+  form.onsubmit = function (evt) {
     evt.preventDefault();
     pristine.validate();
   };
