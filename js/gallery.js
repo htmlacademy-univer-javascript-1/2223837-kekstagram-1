@@ -1,5 +1,5 @@
 import { bigPicModalOpen, updateBigPicData } from './bigPicture.js';
-import { createImageDescriptions } from './data.js';
+// import { createImageDescriptions } from './data.js';
 
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -18,8 +18,8 @@ function createUsersPicture(userImgDescription, fragment) {
   };
 }
 
-export function createUsersPictures(amount = 25) {
-  const userImgDescriptions = createImageDescriptions(amount);
+export function createUsersPictures(userImgDescriptions) {
+  // const userImgDescriptions = createImageDescriptions(amount);
   const fragment = document.createDocumentFragment();
 
   userImgDescriptions.forEach((userImgDescription) => {
