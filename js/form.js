@@ -9,7 +9,7 @@ const closeFormButton = form.querySelector('#upload-cancel');
 const scaleSmallerButton = form.querySelector('.scale__control--smaller');
 const scaleBiggerButton = form.querySelector('.scale__control--bigger');
 const scaleControl = form.querySelector('.scale__control--value');
-const preview = form.querySelector('.img-upload__preview');
+const preview = form.querySelector('.img-upload__preview').querySelector('img');
 const formOverlay = form.querySelector('.img-upload__overlay');
 const hashtagsInput = form.querySelector('.text__hashtags');
 const commentInput = form.querySelector('.text__description');
@@ -117,6 +117,8 @@ function removePostMessage(message) {
 
 function successPost() {
   form.reset();
+  preview.src = 'img/upload-default-image.jpg';
+  preview.style.filter = 'none';
   createMessageBlock(false);
 }
 
@@ -160,12 +162,14 @@ function closeUploadOverlay() {
   formOverlay.classList.add('hidden');
   form.reset();
   preview.style.filter = 'none';
+  preview.src = 'img/upload-default-image.jpg';
   document.removeEventListener('keydown', onUploadOverlayEscKeydown);
   form.removeEventListener('change', onUploadOverlayEffectChange);
   form.removeEventListener('submit', setUploadFormSubmit);
 }
 
-export function uploadFormHandler() {
+function uploadFormHandler() {
   uploadImgButton.onclick = openUploadOverlay;
 }
 
+export { uploadFormHandler, preview };

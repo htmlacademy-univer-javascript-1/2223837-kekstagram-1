@@ -21,9 +21,6 @@ function sendData(onSuccess, onError, body, unblockSubmitButton) {
   fetch('https://26.javascript.pages.academy/kekstagram',
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
       body: body
     })
     .then((response) => {
