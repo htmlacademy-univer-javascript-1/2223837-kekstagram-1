@@ -5,4 +5,15 @@ const getRandomArrayElement = (elements) => elements[getRandomPositiveInt(0, ele
 
 const checkStringLength = (string, maxLength) => string.length <= maxLength;
 
-export {getRandomArrayElement, getRandomPositiveInt, checkStringLength};
+function throttle(callback, delayBetweenFrames = 500) {
+  let lastTime = 0;
+  return (...rest) => {
+    const now = new Date();
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
+
+export { getRandomArrayElement, getRandomPositiveInt, checkStringLength, throttle };
