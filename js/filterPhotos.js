@@ -1,8 +1,8 @@
 import { createUsersPictures, picturesList } from './gallery.js';
 import { getRandomPositiveInt, throttle } from './util.js';
 
-const picturesListHeader = picturesList.children[0];
-const picturesListUploadButton = picturesList.children[1];
+const listHeader = picturesList.children[0];
+const uploadButton = picturesList.children[1];
 const filter = document.querySelector('.img-filters');
 const defaultFilterButton = document.querySelector('#filter-default');
 const randomFilterButton = document.querySelector('#filter-random');
@@ -26,8 +26,8 @@ function removeAllChildNodes(parent) {
 }
 
 function addStaticElementsToPicturesList() {
-  picturesList.appendChild(picturesListHeader);
-  picturesList.appendChild(picturesListUploadButton);
+  picturesList.appendChild(listHeader);
+  picturesList.appendChild(uploadButton);
 }
 
 function removeUserPhotos() {

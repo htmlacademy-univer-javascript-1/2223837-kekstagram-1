@@ -43,6 +43,13 @@ const loadComments = (comments) => {
     currentCommentsCount++;
   });
   bigPicCurrentCommentsCount.textContent = currentCommentsCount;
+  if (currentCommentsCount === comments.length) {
+    commentsLoadButton.classList.add('hidden');
+  } else {
+    if (commentsLoadButton.classList.contains('hidden')) {
+      commentsLoadButton.classList.remove('hidden');
+    }
+  }
 };
 
 export function updateBigPicData({ url, description, likes, comments }) {
