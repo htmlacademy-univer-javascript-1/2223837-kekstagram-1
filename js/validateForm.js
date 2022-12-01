@@ -7,6 +7,9 @@ function onFocusIgnoreEscKeydown(evt) {
 }
 
 function validateHasgtag(value) {
+  if (!value.length) {
+    return true;
+  }
   const hashtags = value.split(' ');
   const uniqueHashtags = [...new Set(hashtags)];
   for (const hashtag of hashtags) {
